@@ -4,7 +4,7 @@ exports.handler = async (event) => {
   console.log("Handling request", event);
   let body = { msg: "error" };
   try {
-    body = await getResponseBody(event);
+    body = await getResponseBody(event.body);
   } catch (error) {
     console.error("Exception", error);
     body = Fail(error, {});
@@ -24,18 +24,20 @@ exports.handler = async (event) => {
   return response;
 };
 
-const getResponseBody = async (event) => {
-  const operation = (event.operation || "noop").toLowerCase();
+const getResponseBody = async (requestBody) => {
+  const operation = (requestBody.operation || "noop").toLowerCase();
   console.log("Handling Operation", operation);
   switch (operation) {
     case "login":
-      return Promise.resolve(Success({ msg: "you are logging in", event }));
+      return Promise.resolve(
+        Success({ msg: "you are logging in", requestBody })
+      );
     case "test":
       return { msg: "testing" };
     default:
       return Promise.resolve({
-        requestEvent: event,
-        error: "Unknown operation: " + event.operation,
+        requestBody: requestBody,
+        error: "Unknown operation: " + operation,
       });
   }
 };
