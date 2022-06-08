@@ -1,15 +1,18 @@
 const express = require("express");
 const { handler } = require(".");
+var bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
-app.use(express.json());
 
-app.all("/", async (req, res) => {
-  console.log("req");
-  const result = await handler(req);
+var jsonParser = bodyParser.json();
+
+app.all("/", jsonParser, async (req, res) => {
+  console.log("req.body", req.body);
+  const asLambdaRequest = { body: JSON.stringify(req.body) };
+  const result = await handler(asLambdaRequest);
   console.log("Result", result);
-  res.send("result");
-  //res.send("Hello World!");
+  res.set(result);
+  res.send(result.body);
 });
 
 app.listen(port, () => {
