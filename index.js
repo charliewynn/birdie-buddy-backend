@@ -38,7 +38,11 @@ const getRoute = (requestBody) => {
 
   const route = Routes[routeName];
   if (!route) {
-    throw `Could not find route with name: ${routeName}. (route names are case-insensitive)`;
+    throw {
+      msg: `Could not find route with name: ${routeName}. (route names are case-insensitive)`,
+      routes: Routes,
+      route: Routes[routeName],
+    };
   }
   return route;
 };
