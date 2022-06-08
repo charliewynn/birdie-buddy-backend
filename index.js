@@ -1,6 +1,16 @@
-const { Success } = require("./Response");
+const { Success, Fail } = require("./Response");
 
 exports.handler = async (event) => {
+  console.log("Handling request", event);
+  let body = { msg: "error" };
+  try {
+    body = await getResponseBody(event);
+  } catch (error) {
+    console.error("Exception", error);
+    body = Fail(error, {});
+  }
+  console.log("Got Body", body);
+
   const response = {
     statusCode: 200,
     headers: {
@@ -8,13 +18,16 @@ exports.handler = async (event) => {
       "Access-Control-Allow-Origin": "https://cwynn.com",
       "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
     },
-    body: await JSON.stringify(getResponseBody(event)),
+    body: body,
   };
+  console.log("Build Response", response);
   return response;
 };
 
 const getResponseBody = async (event) => {
-  switch (event.operation.toLowerCase()) {
+  const operation = event.operation.toLowerCase();
+  console.log("Handling Operation", operation);
+  switch (operation) {
     case "login":
       return Promise.resolve(Success({ msg: "you are logging in", event }));
     case "test":
