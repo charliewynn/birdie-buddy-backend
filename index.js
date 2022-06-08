@@ -18,7 +18,7 @@ exports.handler = async (event) => {
       "Access-Control-Allow-Origin": "https://cwynn.com",
       "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
     },
-    body: body,
+    body: JSON.stringify(body),
   };
   console.log("Build Response", response);
   return response;
