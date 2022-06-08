@@ -4,7 +4,7 @@ exports.handler = async (event) => {
   console.log("Handling request", event);
   let body = { msg: "error" };
   try {
-    body = await getResponseBody(event.body);
+    body = await getResponseBody(QSON.parse(event.body));
   } catch (error) {
     console.error("Exception", error);
     body = Fail(error, {});
