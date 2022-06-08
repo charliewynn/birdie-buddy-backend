@@ -2,7 +2,7 @@ const { Success, Fail } = require("./Response");
 const { GetRoute } = require("./Routes");
 
 exports.handler = async (event) => {
-  //console.log("Handling request", event);
+  console.log("Handling request", event);
   let response = Fail("Failed to process request");
   try {
     const requestBody = getRequestBody(event);
@@ -17,9 +17,11 @@ exports.handler = async (event) => {
 };
 
 const getRequestBody = (request) => {
-  console.log("Getting request Body", request.body);
+  console.log("Getting request body", request.body);
   if (typeof request.body === "string") {
     console.log("Body was a string");
+  } else {
+    console.log(request.body.constructor);
   }
   const body = request.body;
   return body;
