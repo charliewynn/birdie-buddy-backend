@@ -22,28 +22,37 @@ const getRequestBody = (request) => {
 };
 
 const handleRequest = async (requestBody, fullRequest) => {
+  const route = getRoute(requestBody);
+  const action = getAction(route, requestBody);
+
+  const result = action(body, fullRequest);
+  return Success(result);
+};
+
+const getRoute = (requestBody) => {
   let routeName = requestBody.route;
   if (!routeName) {
     throw "No route was specified for the request";
   }
   routeName = routeName.toLowerCase();
 
+  const route = Routes[routeName];
+  if (!route) {
+    throw `Could not find route with name: ${routeName}. (route names are case-insensitive)`;
+  }
+  return route;
+};
+
+const getAction = (route, requestBody) => {
   let actionName = requestBody.action;
   if (!actionName) {
     throw "No action was specified for the request";
   }
   actionName = actionName.toLowerCase();
 
-  const route = Routes[routeName];
-  if (!route) {
-    throw `Could not find route with name: ${routeName}. (route names are case-insensitive)`;
-  }
-
   const action = route[actionName];
   if (!action) {
     throw `Could not find action with name: ${actionName} on route: ${routeName}. (action names are case-insensitive)`;
   }
-
-  const result = action(body, fullRequest);
-  return Success(result);
+  return action;
 };
