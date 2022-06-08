@@ -1,5 +1,5 @@
-const { Success, Fail } = require("./Response");
-const Routes = require("./Routes/index");
+import { Success, Fail } from "./Response";
+import * as Routes from "./Routes/index";
 
 exports.handler = async (event) => {
   console.log("Handling request", event);

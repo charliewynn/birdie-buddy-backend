@@ -1,4 +1,4 @@
-const Authentication = require("./Authentication");
+import Authentication from "./Authentication";
 
 // Route names need to be case insensitive!
 exports.Routes = {
