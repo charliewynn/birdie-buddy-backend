@@ -25,7 +25,7 @@ const handleRequest = async (requestBody, fullRequest) => {
   const route = getRoute(requestBody);
   const action = getAction(route, requestBody);
 
-  const result = action(body, fullRequest);
+  const result = await action(requestBody, fullRequest);
   return Success(result);
 };
 
@@ -52,9 +52,9 @@ const getAction = (route, requestBody) => {
   if (!action) {
     console.error(
       `Could not find action with name: ${actionName} on route:`,
-      JSON.stringify(route)
+      route
     );
-    throw `Could not find action with name: ${actionName} on route: ${route.Name}. (action names are case-sensitive)`;
+    throw `Could not find action with name: ${actionName} on route. (action names are case-sensitive)`;
   }
   return action;
 };
