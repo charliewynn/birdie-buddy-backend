@@ -25,7 +25,7 @@ exports.handler = async (event) => {
 };
 
 const getResponseBody = async (event) => {
-  const operation = event.operation.toLowerCase();
+  const operation = (event.operation || "noop").toLowerCase();
   console.log("Handling Operation", operation);
   switch (operation) {
     case "login":
