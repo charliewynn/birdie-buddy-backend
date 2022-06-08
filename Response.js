@@ -11,7 +11,6 @@ exports.Success = (data) => {
   return response;
 };
 exports.Fail = (message, data) => {
-
   const response = {
     statusCode: 500,
     headers: {
@@ -19,7 +18,7 @@ exports.Fail = (message, data) => {
       "Access-Control-Allow-Origin": "https://cwynn.com",
       "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
     },
-    body: JSON.stringify({ message: message, data: data),
+    body: JSON.stringify({ message: message, data: data }),
   };
   return response;
 };
