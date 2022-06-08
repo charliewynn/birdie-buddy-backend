@@ -1,5 +1,5 @@
 const { Success, Fail } = require("./Response");
-const Routes = require("./Routes/index").default;
+const { GetRoute } = require("./Routes");
 
 exports.handler = async (event) => {
   console.log("Handling request", event);
@@ -34,9 +34,8 @@ const getRoute = (requestBody) => {
   if (!routeName) {
     throw "No route was specified for the request";
   }
-  routeName = routeName.toLowerCase();
 
-  const route = Routes[routeName];
+  const route = GetRoute(routeName);
   if (!route) {
     throw {
       msg: `Could not find route with name: ${routeName}. (route names are case-insensitive)`,

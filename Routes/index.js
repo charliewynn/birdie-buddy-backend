@@ -1,6 +1,9 @@
 const Authentication = require("./Authentication");
 
-// Route names need to be case insensitive!
-exports = {
-  authentication: Authentication,
+exports.GetRoute = (routeName) => {
+  console.log("Looking up route: " + routeName);
+  switch (routeName.toLowerCase()) {
+    case "authentication":
+      return Authentication;
+  }
 };
