@@ -18,6 +18,9 @@ exports.handler = async (event) => {
 
 const getRequestBody = (request) => {
   console.log("Getting request Body", request.body);
+  if (typeof request.body === "string") {
+    console.log("Body was a string");
+  }
   const body = request.body;
   return body;
 };
