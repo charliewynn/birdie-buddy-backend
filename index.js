@@ -47,15 +47,14 @@ const getAction = (route, requestBody) => {
   if (!actionName) {
     throw "No action was specified for the request";
   }
-  actionName = actionName.toLowerCase();
 
   const action = route[actionName];
   if (!action) {
     console.error(
       `Could not find action with name: ${actionName} on route:`,
-      route
+      JSON.stringify(route)
     );
-    throw `Could not find action with name: ${actionName} on route: ${route.Name}. (action names are case-insensitive)`;
+    throw `Could not find action with name: ${actionName} on route: ${route.Name}. (action names are case-sensitive)`;
   }
   return action;
 };
