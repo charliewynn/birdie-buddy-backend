@@ -2,14 +2,14 @@ const { Success, Fail } = require("./Response");
 const { GetRoute } = require("./Routes");
 
 exports.handler = async (event) => {
-  console.log("Handling request", event);
-  let response = Fail("Failed to process request", event);
+  //console.log("Handling request", event);
+  let response = Fail("Failed to process request");
   try {
     const requestBody = getRequestBody(event);
     response = await handleRequest(requestBody, event);
   } catch (error) {
     console.error("Exception", error);
-    response = Fail(error, event);
+    response = Fail(error);
   }
 
   console.log("Built Response", response);
@@ -17,7 +17,8 @@ exports.handler = async (event) => {
 };
 
 const getRequestBody = (request) => {
-  const body = JSON.parse(request.body);
+  console.log("Getting request Body", request.body);
+  const body = request.body;
   return body;
 };
 
