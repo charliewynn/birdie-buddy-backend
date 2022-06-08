@@ -6,6 +6,7 @@ exports.handler = async (event) => {
   let response = Fail("Failed to process request");
   try {
     const requestBody = getRequestBody(event);
+    console.log("Got Request Body", requestBody);
     response = await handleRequest(requestBody, event);
   } catch (error) {
     console.error("Exception", error);
