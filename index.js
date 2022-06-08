@@ -1,5 +1,5 @@
 const { Success, Fail } = require("./Response");
-const Routes = require("./Routes/index");
+const Routes = require("./Routes/index").default;
 
 exports.handler = async (event) => {
   console.log("Handling request", event);
